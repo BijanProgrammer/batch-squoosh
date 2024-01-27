@@ -29,7 +29,19 @@ const generateFilenames = (currentDirectory) => {
 };
 
 const squooshImage = async (filename) => {
-    const image = imagePool.ingestImage(ORIGINAL_FOLDER + filename);
+    const originalFilePath = ORIGINAL_FOLDER + filename;
+
+    const fileData = await new Promise((resolve, reject) => {
+        fs.readFile(originalFilePath, (err, data) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data);
+            }
+        });
+    });
+
+    const image = imagePool.ingestImage(fileData);
 
     if (IS_RESIZING_ENABLED) {
         await image.preprocess({
