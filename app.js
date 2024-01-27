@@ -1,13 +1,14 @@
 const {ImagePool} = require('@squoosh/lib');
 const fs = require('fs');
 const path = require('path');
+const {cpus} = require('os');
 
 const ORIGINAL_FOLDER = './original/';
 const SQUOOSHED_FOLDER = './squooshed/';
 const IS_RESIZING_ENABLED = true;
-const IS_CHANGING_EXTENSION_ENABLED = false;
+const IS_CHANGING_EXTENSION_ENABLED = true;
 
-const imagePool = new ImagePool();
+const imagePool = new ImagePool(cpus().length);
 
 const cleanSquooshedFolder = () => {
     fs.rmSync(SQUOOSHED_FOLDER, {recursive: true});
@@ -33,7 +34,6 @@ const squooshImage = async (filename) => {
     if (IS_RESIZING_ENABLED) {
         await image.preprocess({
             resize: {
-                enabled: true,
                 width: 1920,
             },
         });
