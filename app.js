@@ -55,7 +55,7 @@ const squooshImage = async (filename) => {
 
     const encodeOptions = {
         webp: {
-            quality: 35.4,
+            quality: 25,
             target_size: 0,
             target_PSNR: 0,
             method: 6,
