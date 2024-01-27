@@ -2,3 +2,6 @@ services:
     api:
         build: .
         container_name: batch-squoosh
+        volumes:
+            - ./original:/app/original
+            - ./squooshed:/app/squooshed
